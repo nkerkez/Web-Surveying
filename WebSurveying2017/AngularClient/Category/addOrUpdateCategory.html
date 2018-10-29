@@ -1,0 +1,18 @@
+﻿<div class="col-sm-2"></div>
+<div class="homeDiv col-sm-8" style="display : inline-table">
+    <div ng-if="ctrl.errors" class="alert alert-danger">
+        <ul ng-repeat="error in ctrl.errors">
+            <li ng-repeat="errorText in error">
+                {{errorText}}
+            </li>
+        </ul>
+    </div>
+    <div ng-if="ctrl.state == 'ADD'" class="col-sm-12" style="margin : 20px">
+        <label>Unesi naziv kategorije, a zatim klikni na kategoriju kojoj pripada ta kategorija</label>
+        <input ng-model="ctrl.category.Name" type="text" class="form-control" />
+    </div>
+
+    <categories-component style="display:inline-table" category="ctrl.category" roots="ctrl.rootCategories" state="ctrl.state" on-category-click="ctrl.onClick(category)" class="col-sm-12"></categories-component>
+
+</div>
+<div class="col-sm-2"></div>

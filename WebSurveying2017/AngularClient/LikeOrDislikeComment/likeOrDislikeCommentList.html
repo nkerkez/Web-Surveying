@@ -1,0 +1,16 @@
+﻿<div class="col-sm-2"></div>
+<div class="homeDiv col-sm-8">
+    <nav class="navbar navbar-inverse col-sm-12">
+        <ul class="nav navbar-nav">
+            <li><a href ng-click="ctrl.viewLikes()" ng-style="ctrl.flagLike == true ? {'border-bottom':'2px solid greenyellow','border-left':'2px solid greenyellow','font-style':'italic'}:{}">Likes</a></li>
+            <li><a href ng-click="ctrl.viewDislikes()" ng-style="ctrl.flagLike == false ? {'border-bottom':'2px solid greenyellow','border-left':'2px solid greenyellow','font-style':'italic'}:{}">Dislikes</a></li>
+        </ul>
+    </nav>
+    <br/>
+    <h1 style = "text-align:center" ng-if="ctrl.flagLike">Likes</h1>
+    <h1 style = "text-align:center" ng-if="!ctrl.flagLike">Dislikes</h1>
+
+    <user-info-component class="col-sm-4" user="user" ng-repeat="user in ctrl.users"></user-info-component>
+
+</div>
+<div class="col-sm-2"></div>

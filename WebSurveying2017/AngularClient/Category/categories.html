@@ -1,0 +1,64 @@
+﻿
+
+    <script type="text/ng-template" id="field_renderer.html">
+        
+        <div ng-class="category.IsModerator ? 'divMod col-sm-1' : 'divNotMod col-sm-1'" ng-if="$ctrl.state=='MODERATOR' || $ctrl.state=='SEARCH'" style="padding : 0px" ng-click="$ctrl.checkboxClick(category)">
+
+
+
+
+            &nbsp;
+
+
+
+        </div>
+
+        <a ng-class="$ctrl.state=='MODERATOR' || $ctrl.state=='VIEW'|| $ctrl.state=='ADD'  || $ctrl.state=='SEARCH' ? 'col-sm-9' : 'col-sm-12'" href ng-click="$ctrl.categoryClick(category,true)">{{category.Name}}</a><a ng-click="category.showSubs=!category.showSubs" ng-if="$ctrl.state == 'VIEW' || $ctrl.state == 'ADD'" class="col-sm-3">
+    <i ng-if ="category.SubCategories.length>0 && !category.showSubs" class="material-icons">expand_more</i>
+    <i ng-if="category.SubCategories.length>0 && category.showSubs" class="material-icons">expand_less</i>
+</a>
+        <!--<input ng-model="category.Name" type="text" /> <button ng-click="$ctrl.a(category)">A</button>-->
+        <div class="inpDiv col-sm-2" style="padding : 0px" ng-if="$ctrl.state=='MODERATOR' || $ctrl.state=='SEARCH'">
+            <button style="width : 45%" ng-click="$ctrl.addWithSub(category)" ng-if="$ctrl.state=='MODERATOR' || $ctrl.state=='SEARCH'"> + </button>
+            <button style="width : 45%" ng-click="$ctrl.removeWithSub(category)" ng-if="$ctrl.state=='MODERATOR' || $ctrl.state=='SEARCH'"> X </button>
+        </div>
+        <ul style="list-style-type:none"  ng-if="category.showSubs">
+            <li ng-repeat="category in category.SubCategories" ng-include="'field_renderer.html'" ng-init="category.showSubs = ($ctrl.state == 'SEARCH') ?  true :  false"></li>
+            <li ng-if="category.SubCategories.length>0 && $ctrl.state == 'VIEW'">
+                <!--
+    <div ng-class="category.IsModerator ? 'divMod col-sm-1' : 'divNotMod col-sm-1'" ng-if="$ctrl.state=='MODERATOR' || $ctrl.state=='SEARCH'" style="padding : 0px">
+
+
+
+
+        &nbsp;
+
+
+
+    </div>
+        -->
+                <a class="col-sm-12" href ng-click="$ctrl.categoryClick(category)">Ostalo</a>
+                <!--
+    <div class="inpDiv col-sm-2" style="padding : 0px" ng-if="$ctrl.state=='MODERATOR' || $ctrl.state=='SEARCH'">
+        <button style="width : 45%" ng-click="$ctrl.addCategory(category)" ng-if="$ctrl.state=='MODERATOR' || $ctrl.state=='SEARCH'"> + </button>
+        <button style="width : 45%" ng-click="$ctrl.removeCategory(category)" ng-if="$ctrl.state=='MODERATOR' || $ctrl.state=='SEARCH'"> X </button>
+    </div>
+        -->
+            </li>
+        </ul>
+    </script>
+
+    <ul class="listOfCategories" style="list-style-type:none">
+        <li ng-repeat="parentCategory in $ctrl.roots" ng-init="category = parentCategory; category.showSubs = ($ctrl.state == 'SEARCH') ?  true :  false" ng-include="'field_renderer.html'"></li>
+        <li><a class="col-sm-12" href ng-click="$ctrl.categoryClick(null)">Bez kategorije</a></li>
+    </ul>
+
+    
+    
+    <div ng-if="$ctrl.state=='MODERATOR'">
+        <button ng-click="$ctrl.addCategoriesToModerator()">Update</button>
+    </div>
+
+    <div ng-if="$ctrl.state=='SEARCH'">
+        <button ng-click="$ctrl.addCategoriesForSearch()">Potvrda</button>
+    </div>

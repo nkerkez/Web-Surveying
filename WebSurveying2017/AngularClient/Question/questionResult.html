@@ -1,0 +1,49 @@
+﻿<div class="col-sm-2">
+    
+</div>
+<div class="homeDiv col-sm-8">
+    <h2 class="col-sm-12">Anketa : <a ui-sref="survey({'id' : ctrl.result.Question.Survey.Id})">{{ctrl.result.Question.Survey.Name}}</a></h2>
+    <h3 class="col-sm-12">Pitanje : {{ctrl.result.Question.QuestionText}}</h3>
+    <div class="col-sm-12">
+        <table class="groupTable col-sm-11" ng-if="ctrl.result.Question.AnswerType != 1">
+            <tr>
+                <td>Ime</td>
+                <td>Prezime</td>
+                <td ng-repeat="questionAnswer in ctrl.result.Question.QuestionAnswers">{{questionAnswer.AnswerText}}</td>
+            </tr>
+            <tr ng-repeat="user in ctrl.result.Users">
+                <td>
+                    {{user.FirstName}}
+                </td>
+                <td>
+                    {{user.LastName}}
+                </td>
+                <td ng-repeat="questionAnswer in ctrl.result.Question.QuestionAnswers"
+                    ng-style="user.Answers[questionAnswer.Id] == true && { 'background' : 'linear-gradient(300deg,green,#151430,green)'} || user.Answers[questionAnswer.Id] == false && { 'background' : 'linear-gradient(300deg,red,#151430,red)'}"></td>
+            </tr>
+
+        </table>
+        <table class="groupTable col-sm-11" ng-if="ctrl.result.Question.AnswerType == 1">
+            <tr>
+                <td>Ime</td>
+                <td>Prezime</td>
+                <td>Odgovor</td>
+            </tr>
+            <tr ng-repeat="user in ctrl.result.Users">
+                <td>
+                    {{user.FirstName}}
+                </td>
+                <td>
+                    {{user.LastName}}
+                </td>
+
+                <td>{{user.AnswerText}}</td>
+                       </tr>
+
+        </table>
+    </div>
+    
+</div>
+<div class="col-sm-2">
+  
+</div>

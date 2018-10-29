@@ -1,0 +1,48 @@
+﻿<html lang="en">
+<head>
+    <title>Anketa</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    @Styles.Render("~/Content/css")
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <link rel="stylesheet" href="~/Content/style.css" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet">
+
+</head>
+<body ng-app="WebSurveying2017">
+   
+    <div class="all col-sm-12" style="position : relative ; height : 100%">
+        <div ui-view="navbar" class="navbarView col-sm-12">
+    </div>
+    <div class="contentView col-sm-12">
+            
+               <div class="logo col-sm-12 text-left">
+                    
+                   <div ui-view ="logo"></div>
+
+                </div>
+
+
+
+                <div class="contentDiv col-sm-12" style="position : relative;">
+                    <div ui-view="content" class="content col-sm-12"></div>
+                </div>
+        </div>
+    </div>
+    
+<!--
+    <footer class="container-fluid text-center">
+        <p>Footer Text</p>
+    </footer>-->
+    @Scripts.Render("~/bundles/skripte")
+    @Scripts.Render("~/bundles/angular")
+    
+</body>
+</html>

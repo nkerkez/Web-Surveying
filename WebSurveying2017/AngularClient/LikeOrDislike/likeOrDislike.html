@@ -1,0 +1,11 @@
+﻿<div>
+    <div>
+        <label class="tableLike" style="width : 200px">{{$ctrl.entity.LikeCount}}</label>
+        <label class="tableDislike" style="width : 200px">{{$ctrl.entity.DislikeCount}}</label>
+    </div>
+    
+    <button ng-if="$root.isAuth && (!$ctrl.entity.LoggedUserLikeOrDislike.IsLike || $ctrl.entity.LoggedUserLikeOrDislike == null)" ng-click="$ctrl.likeOrDislikeClick(true)" style="width : 200px">Sviđa mi se</button>
+    <button ng-if="$root.isAuth && ($ctrl.entity.LoggedUserLikeOrDislike.IsLike || $ctrl.entity.LoggedUserLikeOrDislike == null)" ng-click="$ctrl.likeOrDislikeClick(false)" style="width : 200px">Ne sviđa mi se</button>
+    <br/>
+    <button ng-if="" ng-click="$ctrl.viewLikes()" style="width : 400px">Pogledaj ocene</button>
+</div>

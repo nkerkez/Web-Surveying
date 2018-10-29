@@ -1,0 +1,21 @@
+﻿<table class="groupTable col-sm-12">
+
+    <tr>
+        <td>Anketa</td>
+        <td>Broj lajkova</td>
+        <td>Broj dislajkova</td>
+        <td>Datum kreiranja</td>
+    </tr>
+    <tr>
+        <td><a ui-sref="survey({ id : $ctrl.comment.Survey.Id })">{{$ctrl.comment.Survey.Name}}</a></td>
+        <td class="tableLike">{{$ctrl.comment.LikeCount}}</td>
+        <td class="tableDislike">{{$ctrl.comment.DislikeCount}}</td>
+        <td>{{$ctrl.comment.CreationDate | date : 'medium'}}</td>
+    </tr>
+    <tr>
+        <td colspan="4">Tekst komentara</td>
+    </tr>
+    <tr>
+        <td colspan="4"><a ui-sref="comment({ id : $ctrl.comment.Id , surveyId : $ctrl.comment.SurveyId })">{{$ctrl.comment.Text}}</a></td>
+    </tr>
+</table>

@@ -1,0 +1,15 @@
+﻿<div class="col-sm-2"></div>
+<div class="homeDiv col-sm-8" style="display:table">
+    <div class="pageDiv col-sm-12">
+
+        <ul uib-pagination style="margin: 0px;" total-items="ctrl.totalItems" ng-model="ctrl.currentPage" ng-change="ctrl.pageChanged()" class="pageUl"
+            previous-text="Prethodna stranica"
+            next-text="Sledeća stranica"
+            items-per-page="ctrl.size"></ul>
+    </div>
+    
+    <user-comment-component class="col-sm-6" comment="comment" ng-repeat="comment in ctrl.comments">
+        
+    </user-comment-component>
+</div>
+<div class ="col-sm-2"></div>

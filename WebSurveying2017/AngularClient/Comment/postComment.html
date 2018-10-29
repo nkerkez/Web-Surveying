@@ -1,0 +1,19 @@
+﻿
+<form>
+    <div style="margin-top : 20px; margin-left : 50px; margin-right : 50px;">
+        <div ng-if="$ctrl.errors" class="alert alert-danger">
+            <ul ng-repeat="error in $ctrl.errors">
+                <li ng-repeat="errorText in error">
+                    {{errorText}}
+                </li>
+            </ul>
+        </div>
+
+        <textarea ng-model="$ctrl.comment.Text" type="textarea" class="form-control" name="textarea-1506369360685" id="textarea-1506369360685">
+                    </textarea>
+    </div>
+    <div style="margin-top : 20px ; text-align : center">
+        <button ng-click="$ctrl.postComment()" style="height : 35px">Postavi komentar</button>
+    </div>
+    {{$ctrl.b}}
+</form>

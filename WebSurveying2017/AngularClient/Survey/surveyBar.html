@@ -1,0 +1,18 @@
+﻿<div>
+    <button ng-style="$ctrl.typeOfSurveys == 'all' ? {'border' : '2px solid greenyellow'} : {}"  class="col-sm-3" style="height : 45px" ng-click="$ctrl.all()">Sve</button>
+    <button ng-style="$ctrl.typeOfSurveys == 'public' ? {'border' : '2px solid greenyellow'} : {}" class="col-sm-3" style="height : 45px" ng-click="$ctrl.public()">Javne</button>
+    <select ng-init="$ctrl.onInit()" class="col-sm-3" style="height : 45px" ng-model="$ctrl.state" ng-change="$ctrl.changeState()">
+       
+        <option ng-value="3">Sve</option>
+        <option ng-value="1">Otvorene</option>
+        <option ng-value="2">Zatvorene</option>
+
+    </select>
+    <select ng-if="$root.isAuth" ng-style="$ctrl.typeOfSurveys == 'group' ? {'border' : '2px solid greenyellow'} : {}" ng-init="$ctrl.onInit()"  class="col-sm-3" style="height : 45px"  ng-model="$ctrl.groupId" ng-change="$ctrl.changeValue()">
+        <option ng-if="$ctrl.groupId == null"  ng-value=null>
+            - izaberi grupu -
+        </option>
+        <option  ng-repeat="group in $ctrl.groups" ng-value="{{group.Id}}">{{group.Name}}</option>
+
+    </select>
+</div>

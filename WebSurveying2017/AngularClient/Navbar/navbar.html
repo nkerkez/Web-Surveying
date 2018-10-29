@@ -1,0 +1,49 @@
+﻿<nav class="navbar navbar-inverse col-sm-12"  style="display:table ; position : relative">
+    <div class="container-fluid col-sm-12">
+       
+        <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav">
+                <li class="about"><a ui-sref="home({page : 1, size : 10, state : 3})">
+                                      <i class="material-icons">
+                                          home
+                                      </i>
+                    Početna</a></li>
+                <li class="about" ng-if="isAuth"><a ui-sref="user({id : $root.loggedInUser.Id})">
+                                                     <i class="material-icons">
+                                                         person_pin
+                                                     </i>
+                    
+                Moj profil</a></li>
+                <!--<li><a ui-sref="home">Ankete</a></li>-->
+                <li ng-if="isAuth" class="about"><a ui-sref="notifications">
+                                       <i class="material-icons">
+                                           notification_important
+                                       </i>
+                    Notifikacije <b ng-if="$root.loggedInUser.NotificationCount > 0">[ {{$root.loggedInUser.NotificationCount}} ]</b></a></li>
+                <li ng-if="isAuth" class="about"><a ui-sref="newsurvey">
+                                                     <i class="material-icons">
+                                                         assignment
+                                                     </i>
+                    Napravi anketu</a></li>
+                <li ng-if="isAuth && ($root.loggedInUser.RoleName == 'Admin' || $root.loggedInUser.RoleName == 'Moderator')"  class="about"><a href ng-click="nCtrl.createCategory()">
+                                                     <i class="material-icons">
+                                                         format_list_numbered
+                                                     </i>
+                    Napravi kategoriju</a></li>
+                <li ng-if="isAuth" class="about"><a href ng-click="nCtrl.createGroup()"><i class="material-icons">
+group_add
+</i> &nbsp; Napravi grupu</a></li>
+                <li ng-if="isAuth" class="about"><a ui-sref="groups({page : 1, size :10})"><i class="material-icons">
+    group
+</i>   Grupe</a></li>
+                <!--    <li><a href ng-click="nCtrl.download()">Download</a></li>-->
+            </ul>
+            <ul  class="nav navbar-nav navbar-right" ng-controller="authenticationController as ctrl">
+                <li class="aboutt" ng-if="!isAuth"><a  ui-sref="login">Prijavi se</a></li>
+                <li class="aboutt" ng-if="!isAuth"><a ui-sref="signup">Registruj se</a></li>
+                <li class="aboutt" ng-if="$root.role == 'Admin'"><a ui-sref="signup">Registruj novog člana</a></li>
+                <li class="aboutt" ng-if="isAuth"><a href ng-click="ctrl.logout()">Odjavi se</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>

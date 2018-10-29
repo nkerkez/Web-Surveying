@@ -1,0 +1,53 @@
+﻿<div class="grid">
+    
+     <md-grid-list md-cols="2" md-gutter="1em" md-row-height="300px" >
+            <md-grid-tile ng-repeat="survey in $ctrl.surveys" ng-class="survey.State == 1 ? 'surveyGrid surveyOpenedGrid' : 'surveyGrid surveyClosedGrid'" ng-click="$ctrl.openSurvey(survey.Id)">
+               <table class="gridTable col-sm-12">
+                   <tr>
+                       <td colspan="2" style="color : white" align="center">{{survey.Name}}</td>
+                   </tr>
+                   <tr>
+                       <td>Kategorija</td>
+                       <td>{{survey.Category.Name}}</td>
+                   </tr>
+                   <tr>
+                       <td>
+                           Autor
+                       </td>
+                       <td>{{survey.UserVM.FirstName}} {{survey.UserVM.LastName}}</td>
+                   </tr>
+                   <tr>
+                       <td style="background-color:black">
+                           <img  src="../AngularClient/favorite.png" width="20" height="20"  />
+                       </td>
+                       <td style="background-color:black">
+                           {{survey.FavoriteSurveyFor.length}}
+                       </td>
+                   </tr>
+                   <tr>
+                       <td>
+                           Broj komentara
+                       </td>
+                       <td>{{survey.CommentCount
+                           }}
+                       </td>
+                   </tr>
+                   <tr>
+                       <td>
+                           Broj ljudi koji su popunili anketu
+                       </td>
+                       <td>{{survey.NumbOfUsers}}</td>
+                   </tr>
+                   <tr>
+                       <td colspan="2" style="color : white" align="center">Opis : 
+                       {{survey.Description}}
+                     
+                       </td>
+                   </tr>
+                   <tr>
+                       <td colspan="2" style="color : white" align="center">{{survey.CreationDate | date : 'medium'}}</td>
+                   </tr>
+               </table>
+            </md-grid-tile>
+     </md-grid-list>
+</div>

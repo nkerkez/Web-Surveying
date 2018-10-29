@@ -1,0 +1,15 @@
+﻿<div>
+    <!--<select multiple class="multiSelect form-control" ng-model="$ctrl.survey.Groups">
+        <option ng-repeat="group in $ctrl.myGroups" ng-value={{group}}>{{group.Name}} </option>
+    </select>
+    
+    {{$ctrl.survey.Groups}}-->
+
+
+    <select multiple class="multiSelect form-control"
+            data-ng-model="$ctrl.survey.Groups"
+            data-ng-options="group.Name for group in $ctrl.myGroups"
+            required=""></select>
+    
+
+</div>

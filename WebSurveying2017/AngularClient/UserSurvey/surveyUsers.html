@@ -1,0 +1,27 @@
+﻿<div class="col-sm-2">
+
+</div>
+<div class="homeDiv col-sm-8">
+    <div class ="col-sm-12">Korisnici koji su popunili anketu : <a ui-sref ="survey({ id : ctrl.obj.SurveyId})">{{ctrl.obj.SurveyName}}</a></div>
+    <div class="col-sm-3" ng-repeat="user in ctrl.obj.Users">
+        <table class="groupTable col-sm-12">
+            <tr>
+                <td>Ime</td>
+                <td>{{user.FirstName}}</td>
+            </tr>
+            <tr>
+                <td>Prezime</td>
+                <td>{{user.LastName}}</td>
+            </tr>
+            <tr ng-if="user.UserId > 0">
+                <td colspan="2"><button ng-click="ctrl.userProfile(user.UserId)">Pogledajte profil</button></td>
+            </tr>
+            <tr>
+                <td colspan="2"><button ng-click="ctrl.viewResult(user.EncrptId)">Pogledajte anketu</button></td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div class="col-sm-2">
+
+</div>

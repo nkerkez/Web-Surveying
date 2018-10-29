@@ -1,0 +1,36 @@
+﻿<div class="col-sm-2">
+
+</div>
+<div class="homeDiv col-sm-8">
+    <table class="groupTable col-sm-11" style="position : relative; margin-bottom : 30px;">
+        <tr>
+            <td>
+                Naziv fajla
+            </td>
+            <td>
+                Fajl sačuvan
+            </td>
+            <td>
+                Naziv ankete
+            </td>
+            <td></td>
+        </tr>
+        <tr ng-repeat="file in ctrl.files">
+            <td>
+                {{file.Name}}
+            </td>
+            <td>
+                {{file.CreationDate | date : 'medium'}}
+            </td>
+            <td>
+                {{file.Survey.Name}}
+            </td>
+            <td>
+                <button ng-click="ctrl.download(file.Id)">Preuzmi</button>
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="col-sm-2">
+
+</div>

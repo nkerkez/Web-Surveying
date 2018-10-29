@@ -1,0 +1,32 @@
+﻿<div class="homeDiv col-sm-12">
+    
+    
+
+    <div class="categoriesContainer col-sm-3">
+        <categories-component class="categoriesComponent col-sm-12" state="ctrl.state" roots="ctrl.rootCategories" on-category-click="ctrl.onClick(category)"></categories-component>
+    </div>
+    <div class="surveysContainer col-sm-9">
+        <nav ng-if="ctrl.categoryId != 0" class="navbar navbar-inverse" style="padding : 2px; border-left : 2px groove #4f95ff; border-right : 2px groove #4f95ff">
+            <ul class="nav navbar-nav">
+                <li><a ui-sref="updateCategory({'id' : ctrl.category.Id})"> Izmeni kategoriju </a></li>
+                <li><a href ng-click="ctrl.deleteCategory()"> Obriši kategoriju </a></li>
+                <li style="position: absolute ; right : 2px; border-left : 2px groove #4f95ff; padding-left : 5px" ng-if="ctrl.helpService.contains(ctrl.moderatorCategories, ctrl.category.Id) || $root.role == 'Admin'">
+                    
+                        <input placeholder=" - naziv podkategorije - " style="height :50px" ng-model="ctrl.name" />
+                        <button style="height :50px" ng-click="ctrl.create()">
+                            Dodaj podkategoriju
+                        </button>
+                    
+                    
+                </li>
+                
+            </ul>
+        </nav>
+
+        <search-surveys-component class="col-sm-12" search-surveys="ctrl.searchSurveys(queryString)"></search-surveys-component>
+        <surveys-component surveys="ctrl.surveys" class="col-sm-12"></surveys-component>
+    </div>
+
+
+
+</div>

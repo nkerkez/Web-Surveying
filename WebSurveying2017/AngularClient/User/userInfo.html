@@ -1,0 +1,118 @@
+﻿<br />
+
+<table class="userTable col-sm-12">
+    <!--  <tr>
+          <td>
+              Is Moderator
+          </td>
+          <td>
+              <input type="checkbox" ng-model="$ctrl.user.IsModerator" />
+          </td>
+      </tr>
+        -->
+    <tr>
+        <td>Ime</td>
+        <td><input ng-if="$ctrl.editFN" type="text" ng-model="$ctrl.updateUser.FirstName" /><label ng-if="!$ctrl.editFN">{{$ctrl.user.FirstName}}</label></td>
+        <td ng-if="!$ctrl.editFN && $ctrl.state == 'PROFILE'"><button ng-click="$ctrl.editFN = true">Izmeni</button></td>
+        <td ng-if="$ctrl.editFN && $ctrl.state == 'PROFILE'"><button ng-click="$ctrl.editFN = false; $ctrl.user.FirstName = $ctrl.updateUser.FirstName ">Potvrdi</button><button ng-click="$ctrl.editFN = false">Odustani</button></td>
+
+
+
+    </tr>
+    <tr>
+        <td>Prezime</td>
+        <td><input ng-if="$ctrl.editLN" type="text" ng-model="$ctrl.updateUser.LastName" /><label ng-if="!$ctrl.editLN">{{$ctrl.user.LastName}}</label></td>
+        <td ng-if="!$ctrl.editLN && $ctrl.state == 'PROFILE'"><button ng-click="$ctrl.editLN = true">Izmeni</button></td>
+        <td ng-if="$ctrl.editLN && $ctrl.state == 'PROFILE'"><button ng-click="$ctrl.editLN = false; $ctrl.user.LastName = $ctrl.updateUser.LastName ">Potvrdi</button><button ng-if="$ctrl.editLN" ng-click="$ctrl.editLN = false">Odustani</button></td>
+
+
+    </tr>
+    <tr>
+        <td>Email</td>
+        <td><label>{{$ctrl.user.Email}}</label></td>
+        <td ng-if="$ctrl.state == 'PROFILE'"></td>
+    </tr>
+    <tr>
+        <td>Uloga</td>
+        <td><label>{{$ctrl.user.RoleName}}</label></td>
+        <td ng-if="$ctrl.state == 'PROFILE'"></td>
+    <tr>
+        <td>Datum rodjenja</td>
+        <td>
+            <md-datepicker ng-if="$ctrl.editBD" md-min-date="$ctrl.minDate" md-max-date="$ctrl.maxDate" flex ng-model="$ctrl.Birthday" md-current-view="year" md-placeholder=" - ubacite datum - "></md-datepicker>
+            <label ng-if="!$ctrl.editBD && $ctrl.user.Birthday != null">{{$ctrl.user.Birthday | date : 'medium'}}</label>
+        </td>
+        <td ng-if="$ctrl.user.ExternalLogin && !$ctrl.editBD && $ctrl.state == 'PROFILE'"><button ng-click="$ctrl.editBD = true">Izmeni</button></td>
+        <td ng-if="$ctrl.user.ExternalLogin && $ctrl.editBD && $ctrl.state == 'PROFILE'"><button ng-click="$ctrl.editBD = false; $ctrl.user.Birthday = $ctrl.Birthday">Potvrdi</button><button ng-if="$ctrl.editBD" ng-click="$ctrl.editBD = false;">Odustani</button></td>
+        <td ng-if="!$ctrl.user.ExternalLogin &&  $ctrl.state == 'PROFILE'">
+            &nbsp;
+        </td>
+    </tr>
+    <tr>
+        <td>Grad</td>
+        <td><input class="form-control" ng-if="$ctrl.editC" type="text" ng-model="$ctrl.updateUser.City" /><label ng-if="!$ctrl.editC">{{$ctrl.user.City}}</label></td>
+        <td ng-if="!$ctrl.editC && $ctrl.state == 'PROFILE'"><button ng-click="$ctrl.editC = true">Izmeni</button></td>
+        <td ng-if="$ctrl.editC && $ctrl.state == 'PROFILE'"><button ng-click="$ctrl.editC = false; $ctrl.user.City = $ctrl.updateUser.City ">Potvrdi</button><button ng-if="$ctrl.editC" ng-click="$ctrl.editC = false">Odustani</button></td>
+
+    </tr>
+    <tr>
+        <td>Pol</td>
+        <td ng-if="$ctrl.user.Gender == 1"><label>Muško</label></td>
+        <td ng-if="$ctrl.user.Gender == 2"><label>Žensko</label></td>
+        <td ng-if="$ctrl.state == 'PROFILE'"></td>
+    </tr>
+    <tr ng-if="$ctrl.state == 'UPDATEMODERATORS'">
+        <td>Moderator</td>
+        <td ng-class="$ctrl.user.IsModerator ? 'divMod' : 'divNotMod'" ng-click="$ctrl.user.IsModerator = !$ctrl.user.IsModerator"> &nbsp;</td>
+        <td ng-if="$ctrl.state == 'PROFILE'"></td>
+    </tr>
+    <tr ng-if="$ctrl.state == 'PROFILE' && $ctrl.user.ExternalLogin != true">
+        <td><input class="form-control" style="position:relative; width : 80%" type="password" ng-model="$ctrl.resetPass.OldPassword" placeholder=" - stara šifra - " /></td>
+        <td>
+            <input class="form-control" style="position:relative; width: 80%" type="password" ng-model="$ctrl.resetPass.NewPassword" placeholder=" - nova šifra - " />
+            <input class="form-control" style="position:relative; width: 80%; margin-top:10px" type="password" ng-model="$ctrl.resetPass.ConfirmPassword" placeholder=" - ponovo unesi novu šifru - " />
+        </td>
+        <td>
+            <button style="position:relative; min-width : 80%; max-width : 100%;
+  text-overflow: ellipsis;
+  white-space: nowrap" ng-click="$ctrl.resetPasswordClick()">
+                Izmeni šifru
+            </button>
+        </td>
+    </tr>
+    <tr ng-if="$ctrl.state == 'PROFILE'">
+        <td></td>
+        <td></td>
+        <td>
+            <button style="position:relative; min-width : 80%; max-width : 100%;
+  text-overflow: ellipsis;
+  white-space: nowrap" ng-click="$ctrl.updateProfile()">
+                Izmeni profil
+            </button>
+        </td>
+    </tr>
+    <tr ng-if="$ctrl.state == 'GROUP' && !$ctrl.contains() && $root.loggedInUser.Id != $ctrl.user.Id">
+        <td colspan="2">
+            <button style="position:relative; min-width : 80%; max-width : 100%;
+  text-overflow: ellipsis;
+  white-space: nowrap" ng-click="$ctrl.addUserToGroup()">
+                Dodaj u grupu
+            </button>
+        </td>
+    </tr>
+    <tr ng-if="$ctrl.state == 'GROUP'  && $ctrl.contains() && $root.loggedInUser.Id != $ctrl.user.Id">
+        <td colspan="2">
+            <button style="position:relative; min-width : 80%; max-width : 100%;
+  text-overflow: ellipsis;
+  white-space: nowrap" ng-click="$ctrl.removeUserFromGroup()">
+                Ukloni iz grupe
+            </button>
+        </td>
+    </tr>
+    <tr  ng-if="$ctrl.state == 'GROUP'  && $root.loggedInUser.Id == $ctrl.user.Id">
+        <td colspan="2">&nbsp;</td>
+    </tr>
+
+</table>
+
+<br />

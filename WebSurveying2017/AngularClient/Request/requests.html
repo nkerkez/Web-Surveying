@@ -1,0 +1,12 @@
+﻿<div class="col-sm-2">
+
+</div>
+<div class="homeDiv col-sm-8">
+    <h2>Zahtevi za pritstup grupi <i><a>{{ctrl.requests.Group.Name}}</a></i></h2>
+    <div ng-repeat="user in ctrl.requests.Users" class="request">
+        <request-component user ="user"></request-component>
+    </div>
+</div>
+<div class="col-sm-2">
+
+</div>

@@ -1,0 +1,50 @@
+﻿
+<script type="text/ng-template" id="field_renderer.html">
+    <div  ng-class="comment.Id != $ctrl.commentId ? 'comment col-sm-12' : 'selectedComment col-sm-12'">
+        
+        <div class="col-sm-8">
+            <div ng-class="comment.UserId == $root.loggedInUser.Id ? 'myCommentBody' : 'commentBody'">
+
+               
+                
+                <div class="col-sm-12" style="border-bottom : 1px inset #4f95ff">
+                    <label>{{comment.User.FirstName}} {{comment.User.LastName}}, </label>
+                    <label>{{comment.CreationDate | date : 'medium'}}</label>
+                </div>
+                <br />
+                <div class="col-sm-12" style="margin : 15px">
+                    <label><i>{{comment.Text}}</i></label>
+                </div>
+                <br />
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <a ng-if="comment.UserId == $root.loggedInUser.Id" ui-sref="likeordislikecommentlist({'id' : comment.Id})">Pogledaj ocene</a>
+            <like-or-dislike-component entity="comment"  class="likeDiv"></like-or-dislike-component>
+        </div>
+        
+        
+
+        
+        <br />
+        <div class="col-sm-12">
+            <button ng-if="$root.isAuth" ng-click="$ctrl.postComment(comment.Id)">Odgovori</button>
+
+
+            <button ng-if="comment.SubComments.length > 0" ng-click="$ctrl.showHide(comment)">Prikazi/skloni odgovore ( {{comment.SubComments.length}} )</button>
+
+            <button ng-if="comment.UserId == $root.loggedInUser.Id" ng-click="$ctrl.updateComment(comment)">Izmeni</button>
+            <button ng-if="comment.UserId == $root.loggedInUser.Id || $root.loggedInUser.RoleName != 'User'" ng-click="$ctrl.deleteComment(comment)">Obriši</button>
+        </div>
+    </div>
+    <br />
+    <ul ng-if="comment.showSubs == true">
+        <li ng-repeat="comment in comment.SubComments" ng-include="'field_renderer.html'"></li>
+    </ul>
+</script>
+
+<ul>
+    <li ng-repeat="parentComment in $ctrl.parentComments" ng-init="comment = parentComment" ng-include="'field_renderer.html'"></li>
+    
+</ul>
+

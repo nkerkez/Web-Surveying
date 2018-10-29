@@ -1,0 +1,146 @@
+﻿
+<div class="formLeft col-sm-3">
+    <form   id="rendered-form">
+        <div class="rendered-form">
+
+            <br />
+            <div class="">
+                 <input ng-model="ctrl.survey.Name" type="text" class="form-control" placeholder=" - naziv -">
+            </div>
+            <br />
+            <div class="" style="border-bottom: 2px inset #4f95ff; padding-bottom: 20px">
+               <textarea ng-model="ctrl.survey.Description" type="textarea" class="form-control" placeholder=" - opis - ">
+               </textarea>
+            </div>
+            <div class="" style="border-bottom: 2px inset #4f95ff; padding-bottom: 20px; padding-top : 20px">
+                <choice-category-component  survey ="ctrl.survey"></choice-category-component>
+
+            </div>
+   
+            <div style="padding-top: 20px">
+                
+                <input class="option-input checkbox" type="checkbox" ng-model="ctrl.survey.Public">
+                <label style="position : absolute ;left : 80px; padding-top : 10px"> Javna anketa</label> 
+            </div>
+            
+            <div ng-if="!ctrl.survey.Public">
+                <br/>
+                <label> Grupe</label> 
+                <choose-groups-component my-groups ="ctrl.myGroups" survey ="ctrl.survey">
+
+                </choose-groups-component>
+            </div>
+            <br />
+            <div>
+                
+                <input class="option-input checkbox" type="checkbox" ng-model="ctrl.survey.Anonymous">
+                <label style="position : absolute ;left : 80px; padding-top:10px"> Anonimna anketa</label> 
+            </div>
+            <br />
+            <div>
+                
+                <input class="option-input checkbox" type="checkbox" ng-model="ctrl.survey.ResultAuthor">
+                <label style="position : absolute ;left : 80px; padding-top: 10px;"> Rezultati vidljivi samo autoru</label> 
+            </div>
+            <br />
+            
+            <br />
+            <div class="question">
+                <h2>Pitanje</h2>
+                <br />
+                <div ng-if="ctrl.errorMessage" class="alert alert-danger col-sm-12">
+                    {{ctrl.errorMessage}}
+                </div>
+                <br />
+                <button class="col-sm-6" ng-style="ctrl.question.AnswerType == 1 ? {  'border' : '2px groove yellow'} : {}" ng-click="ctrl.changeType(ctrl.question, 1)">Tekst</button>
+                <button class="col-sm-6" ng-style="ctrl.question.AnswerType == 2 ? {  'border' : '2px groove yellow' } : {}" ng-click="ctrl.changeType(ctrl.question, 2)">Select lista</button>
+                <button class="col-sm-6" ng-style="ctrl.question.AnswerType == 3 ? {  'border' : '2px groove yellow' } : {}" ng-click="ctrl.changeType(ctrl.question, 3)">MultiSelect lista</button>
+                <button class="col-sm-6" ng-style="ctrl.question.AnswerType == 4 ? {  'border' : '2px groove yellow' } : {}" ng-click="ctrl.changeType(ctrl.question, 4)">Radio lista</button>
+                <button class="col-sm-6" ng-style="ctrl.question.AnswerType == 5 ? { 'border' : '2px groove yellow' } : {}" ng-click="ctrl.changeType(ctrl.question, 5)">Check lista</button>
+                <button class="col-sm-6" ng-style="ctrl.question.AnswerType == 6 ? {  'border' : '2px groove yellow' } : {}" ng-click="ctrl.changeType(ctrl.question, 6)">MultiCheck lista</button>
+                <button class="col-sm-12" ng-if="ctrl.question.AnswerType != 1" ng-click="ctrl.addAnswer()"> + </button>
+                <br />
+
+                <br />
+
+                <label style="margin-top : 15px; align-content: center">Redni broj pitanja</label>
+                <select ng-model="ctrl.question.OrdinalNumber" class="form-control" ng-if="ctrl.questionState =='add'">
+                    <option ng-value="{{orNumb}}" ng-repeat="orNumb in ctrl.ordinalNumbers | orderBy">{{orNumb}}</option>
+                    <!--
+        <option ng-value="1">1</option>
+        <option ng-value="{{$index+2}}" ng-repeat="question in ctrl.survey.Questions | orderBy : 'OrdinalNumber'">{{$index + 2}}</option>
+            -->
+                </select>
+                <select ng-model="ctrl.question.OrdinalNumber" class="form-control" ng-if="ctrl.questionState =='update'">
+                    <option ng-value="{{$index+1}}" ng-repeat="question in ctrl.survey.Questions">{{$index + 1}}</option>
+                </select>
+                <br />
+                <div class="">
+                    <textarea ng-model="ctrl.question.QuestionText" type="textarea" class="form-control" placeholder=" - tekst pitanja - ">
+                     </textarea>
+                </div>
+                <br />
+                <div>
+                    <input class="option-input checkbox" ng-model="ctrl.question.Required" type="checkbox" />
+                    <label style="position : absolute ;left : 80px; padding-top : 10px">
+                        Obavezan odgovor
+                    </label>
+
+                </div>
+                <br />
+                <div ng-if="(ctrl.question.AnswerType == 3 || ctrl.question.AnswerType == 6) && ctrl.question.QuestionAnswers.length > 1">
+                    <div>
+                        <label>
+                            Minimalan broj odgovora
+                        </label>
+                        <br />
+                        <select class="col-sm-12" ng-model="ctrl.question.MinNumbOfAnswers" ng-init="ctrl.question.MinNumbOfAnswers = ctrl.question.MinNumbOfAnswers == null ? 1 : ctrl.question.MinNumbOfAnswers">
+
+                            <option ng-repeat="answer in ctrl.question.QuestionAnswers" ng-value={{$index+1}}>{{$index + 1}}</option>
+
+                        </select>
+                    </div>
+                    <br />
+                    <div>
+                        <label>
+                            Maksimalan broj odgovora
+                        </label>
+                        <br />
+                        <select class="col-sm-12" ng-model="ctrl.question.MaxNumbOfAnswers" ng-init="ctrl.question.MaxNumbOfAnswers = ctrl.question.MaxNumbOfAnswers == null ? 1 : ctrl.question.MaxNumbOfAnswers ">
+
+                            <option ng-repeat="answer in ctrl.question.QuestionAnswers" ng-value={{$index+1}}>{{$index + 1}}</option>
+
+                        </select>
+                    </div>
+                    <br />
+                </div>
+                <br />
+                <div ng-repeat="answer in ctrl.question.QuestionAnswers">
+                    <div class="col-sm-12">
+                        <input ng-model="answer.OrdinalNumber" type="text" class="col-sm-2" placeholder="rbr" />
+                        <input ng-model="answer.AnswerText" type="text" class="col-sm-8" placeholder="tekst ponudjenog odgovora">
+                        <button class = "col-sm-2" ng-click="ctrl.deleteAnswer(answer)">X</button>
+                    </div>
+                    <br />
+                    
+                </div>
+                <button ng-if="ctrl.questionState =='add'" ng-click="ctrl.addQuestion()" style="width : 200px; height:42px">Dodaj</button>
+                <button ng-if="ctrl.questionState =='update'" ng-click="ctrl.editQuestion()" style="width : 200px; height:42px">Izmeni</button>
+            </div>  
+               
+        </div>
+    </form>
+</div>
+<div class="surveyInfo col-sm-9" style="margin-bottom : 100px">
+    <div ng-if="ctrl.errors" class="alert alert-danger">
+        <ul ng-repeat="error in ctrl.errors">
+            <li ng-repeat="errorText in error">
+                {{errorText}}
+            </li>
+        </ul>
+    </div>
+    <survey-component class="col-sm-12" old-survey="ctrl.oldSurvey" state="ctrl.state" survey="ctrl.survey" on-edit="ctrl.edit(question)" on-delete="ctrl.delete(question)">
+
+    </survey-component>
+    <button ng-click="ctrl.createSurvey()" style="margin : 20px; width : 200px; height:42px">Napravi</button>
+</div>

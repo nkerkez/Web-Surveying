@@ -1,0 +1,19 @@
+﻿<div class="col-sm-2"></div>
+<div class="homeDiv col-sm-8" style="display:table">
+
+
+    <search-groups-component search-groups="ctrl.searchGroups(queryString)" class="col-sm-12"></search-groups-component>
+    <div class="pageDiv col-sm-12">
+
+        <ul style="margin-top:10px" uib-pagination style="margin: 0px;" total-items="ctrl.totalItems" ng-model="ctrl.currentPage" ng-change="ctrl.pageChanged()" class="pageUl"
+            previous-text="Prethodna stranica"
+            next-text="Sledeća stranica"
+            items-per-page="ctrl.size"></ul>
+    </div>
+    <group-component group="group" ng-repeat="group in ctrl.groups" class="col-sm-6"></group-component>
+
+</div>
+
+<div class="col-sm-2"></div>
+
+

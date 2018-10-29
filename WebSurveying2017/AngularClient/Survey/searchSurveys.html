@@ -1,0 +1,38 @@
+﻿<form id="searchSurveysForm">
+    <table class="searchTable col-sm-12">
+        <tr>
+            <td>
+                <input ng-model="$ctrl.obj.Name"  class="form-control" type="text" placeholder=" - naziv ankete - " name="Name" />
+            </td>
+            <td>
+                <input ng-model="$ctrl.obj.AuthorFirstName" class="form-control" type="text" placeholder=" - ime autora - " name="AuthorFirstName" />
+            </td>
+            <td>
+                <input ng-model="$ctrl.obj.AuthorLastName"  class="form-control" type="text" placeholder=" - prezime autora - " name="AuthorLastName" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <textarea ng-model="$ctrl.obj.Description"  class="form-control" placeholder=" - opis ankete - " name="Description" />
+            </td>
+            <td>
+                <textarea ng-model="$ctrl.obj.QuestionText"  class="form-control" placeholder=" - tekst pitanja - " name="QuestionText" />
+            </td>
+            <td ng-if="$ctrl.showChoiceCategoriesButton">
+                <button ng-click="$ctrl.initCatsAndOpenModal()">
+                    Izaberi kategoriju
+                </button>
+                
+                
+            </td>
+            <td ng-if="!$ctrl.showChoiceCategoriesButton">
+                &nbsp;
+            </td>
+        </tr>
+        
+        
+        <tr>
+            <td colspan="3"><button ng-click="$ctrl.search()">Pretrazi</button></td>
+        </tr>
+    </table>
+</form>

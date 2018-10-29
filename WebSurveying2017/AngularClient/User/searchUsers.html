@@ -1,0 +1,68 @@
+﻿<form class="col-sm-12" id="searchUsersForm">
+    <table class="searchTable col-sm-12">
+        <tr>
+            <td>
+                <input ng-model="$ctrl.obj.FirstName" class="form-control" type="text" placeholder=" - ime - "  name="FirstName"/>
+            </td>
+            <td>
+                <input ng-model="$ctrl.obj.LastName" class="form-control" type="text" placeholder=" - prezime - " name="LastName" />
+            </td>
+            <td>
+                <input ng-model="$ctrl.obj.City" class="form-control" type="text" placeholder=" - grad - " name="City" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Pol
+            </td>
+            <td>
+                Uloga
+            </td>
+            <td>
+                Godina rodjenja
+            </td>
+        </tr>
+        <tr>
+            <td style="text-align : left;">
+                
+                        <div class="radio">
+                            <input class="option-input radio" ng-checked="$ctrl.initCheckBoxes('Gender','1')" name="Gender" value="1" type="checkbox">
+                            <label style="height:40px !important; position: absolute; top : 11px ; left : 100px;">Muško</label>
+                        </div>
+                        <div class="radio">
+                            <input class="option-input radio" ng-checked="$ctrl.initCheckBoxes('Gender','2')" name="Gender" value="2" type="checkbox">
+                            <label style="height:40px !important; position: absolute; top : 15px ; left : 100px;">Žensko</label>
+                        </div>   
+                    
+                <label>&nbsp;</label>
+            </td>
+            <td style="text-align : left">
+                <div style="padding : 1px;">
+                    <div class="radio">
+                        <input class="option-input checkbox" ng-checked="$ctrl.initCheckBoxes('RoleName','Admin')" name="RoleName" value="Admin" type="checkbox">
+                        <label style="height:40px !important; position: absolute; top : 11px ; left : 100px;">Administrator</label>
+                    </div>
+                    <div class="radio">
+                        <input class="option-input checkbox" ng-checked="$ctrl.initCheckBoxes('RoleName','Moderator')" name="RoleName" value="Moderator" type="checkbox">
+                        <label style="height:40px !important; position: absolute; top : 11px ; left : 100px;">Moderator</label>
+                    </div>
+                    <div class="radio">
+                        <input class="option-input checkbox" ng-checked="$ctrl.initCheckBoxes('RoleName','User')" name="RoleName" value="User" type="checkbox">
+                        <label style="height:40px !important; position: absolute; top : 11px ; left : 100px;">Korisnik</label>
+                    </div>
+                </div>
+            </td>
+            <td style="padding-bottom : 30px">
+                <md-datepicker md-min-date="$ctrl.minDate" md-max-date ="$ctrl.maxDate"  ng-model="$ctrl.BirthdayFrom" md-current-view="year" name ="BirthdayFrom" ng-change="$ctrl.changeDate(true)" ></md-datepicker>
+                <input type="text" ng-model="$ctrl.obj.BirthdayFrom" name="BirthdayFrom" class="form-control" placeholder=" - godina rodjenja od - "/>
+                <br/>
+                <md-datepicker md-min-date="$ctrl.minDate" md-max-date ="$ctrl.maxDate"  ng-model="$ctrl.BirthdayTo" md-current-view="year" ng-change="$ctrl.changeDate(false)"  name ="BirthdayTo"></md-datepicker>
+                <input ng-model="$ctrl.obj.BirthdayTo" type="text"  name="BirthdayTo" class="form-control" placeholder=" - godina rodjenja do - "/>
+            </td>
+        </tr>
+        
+        <tr>
+            <td colspan="3"><button ng-click="$ctrl.search()">Pretraži</button></td>
+        </tr>
+    </table>
+</form>

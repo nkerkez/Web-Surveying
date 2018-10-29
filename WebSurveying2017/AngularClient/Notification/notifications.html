@@ -1,0 +1,25 @@
+﻿<div class="col-sm-2">
+
+</div>
+<div class="homeDiv notifications col-sm-8" style="padding-top:0px">
+    <nav class="navbar navbar-inverse">
+        <ul class="nav navbar-nav">
+            <li>
+                <a href ng-click="ctrl.showAll()">Sve</a>
+            </li>
+            <li>
+                <a href ng-click="ctrl.showModerator()">Moderatorske</a>
+            </li>
+            <li>
+                <a href ng-click="ctrl.showPersonal()">Lične</a>
+            </li>
+        </ul>
+    </nav>
+    <br />
+    <div ng-repeat="notification in ctrl.notifications">
+        <notification-component notification="notification" click-on-notification="ctrl.clickOnNotification(n, onlyRead)"></notification-component>
+    </div>
+</div>
+<div class="col-sm-2">
+
+</div>

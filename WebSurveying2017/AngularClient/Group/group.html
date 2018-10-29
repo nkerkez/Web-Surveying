@@ -1,0 +1,49 @@
+﻿
+<table class="tableOfGroup col-sm-12">
+    <tr>
+        <td>Naziv grupe</td>
+        <td>{{$ctrl.group.Name}}</td>
+        <td>Autor grupe</td>
+        <td><a ui-sref="user({id: $ctrl.group.User.Id})">{{$ctrl.group.User.FirstName}} {{$ctrl.group.User.LastName}}</a> </td>
+    </tr>
+    <tr>
+        <td>Broj članova</td>
+        <td><a ui-sref="groupUsers({ id : $ctrl.group.Id })">{{$ctrl.group.NumbOfMembers}}</a></td>
+        <td>Broj anketa</td>
+        <td><a ui-sref ="groupSurveys({state : 3, id : $ctrl.group.Id, page :1, size : 10})">{{$ctrl.group.NumbOfSurveys}}</a></td>
+
+    </tr>
+    <tr ng-if="$root.loggedInUser.Id != $ctrl.group.User.Id && !$ctrl.group.IsMember">
+        <td colspan="4"><button ng-click="$ctrl.sendRequest()">Pošalji zahtev za pristup grupi</button></td>
+    </tr>
+    <tr ng-if="$root.loggedInUser.Id == $ctrl.group.User.Id || $ctrl.group.IsMember">
+        <td colspan="4">&nbsp</td>
+    </tr>
+    <tr ng-if="$root.loggedInUser.Id == $ctrl.group.User.Id">
+        <td>Zahtevi za pristup grupi</td>
+        <td><a ui-sref="requests({groupId : $ctrl.group.Id})">{{$ctrl.group.NumbOfRequests}}</a></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr ng-if="$root.loggedInUser.Id != $ctrl.group.User.Id">
+        <td colspan="4">&nbsp</td>
+    </tr>
+    <tr ng-if="$root.loggedInUser.Id == $ctrl.group.User.Id" ng-init="$ctrl.changeNameFlag=false" style="border-top : 1px groove white">
+        <td colspan="2"><a ui-sref="editGroup({ id : $ctrl.group.Id, page : 1, size : 10})">Izmeni članove</a></td>
+        <td><button ng-click="$ctrl.changeNameFlag = !$ctrl.changeNameFlag">Izmeni ime</button></td>
+        <td style="font-style:normal">
+            <button  ng-click="$ctrl.deleteGroup()">Obriši grupu</button>
+        </td>
+    </tr>
+
+    <tr ng-if="$ctrl.changeNameFlag">
+        <td colspan="2"><input ng-model="$ctrl.name" type="text" class="form-control" /></td>
+        <td colspan="2">
+            <button ng-click="$ctrl.updateName($ctrl.group, $ctrl.name)">Izmeni</button>
+        </td>
+       
+    </tr>
+    <tr ng-if="$root.loggedInUser.Id != $ctrl.group.User.Id">
+        <td colspan="4">&nbsp</td>
+    </tr>
+</table>

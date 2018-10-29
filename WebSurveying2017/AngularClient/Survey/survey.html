@@ -1,0 +1,45 @@
+﻿<div class="col-sm-2"></div>
+<div class="homeDiv  col-sm-8" style="padding-top : 0px; padding-left:0px; padding-right : 0px">
+
+
+    <nav class="navbar navbar-inverse col-sm-12" ng-if="$root.isAuth" style="display:table">
+        <div class="container-fluid" style="padding-left: 0px">
+            <ul class="nav navbar-nav col-sm-12">
+                <li ng-if="surveyCtrl.helpService.contains(surveyCtrl.survey.FilledSurvey, $root.loggedInUser.Id)"><a class="about" ui-sref="fillsurvey({'id' : surveyCtrl.survey.Id})">Ponovo popuni anketu</a></li>
+                <li><a class="about" ui-sref="surveyresult({'id' : surveyCtrl.survey.Id, 'userId' : 0})">Pogledaj rezultate</a></li>
+                <li ng-if="surveyCtrl.survey.CommentCount > 0"><a class="about" ui-sref="surveyComments({'id' : surveyCtrl.survey.Id, 'page' : 1 , 'size' : 10})">Komentari <b>( {{surveyCtrl.survey.CommentCount}} )</b></a></li>
+                <li ng-if="$root.loggedInUser.Id==surveyCtrl.survey.UserId"><a class="about" ui-sref="updateSurvey({'id' : surveyCtrl.survey.Id, 'flag':1})">Izmeni</a></li>
+                <li ng-if="$root.loggedInUser.Id==surveyCtrl.survey.UserId || $root.loggedInUser.RoleName != 'User'"><a class="about" href ng-click="surveyCtrl.deleteSurvey()">Obriši</a></li>
+                <li ng-if="$root.loggedInUser.Id==surveyCtrl.survey.UserId"><a class="about" href ng-click="surveyCtrl.resetSurvey()">Resetuj</a></li>
+                <li><a class="about" href ng-click="surveyCtrl.showCommentForm()">Napiši komentar</a></li>
+                <li ng-if="!surveyCtrl.helpService.contains(surveyCtrl.survey.FavoriteSurveyFor, $root.loggedInUser.Id)"><a class="about" href ng-click="surveyCtrl.postFavoriteSurvey()">Prebaci u omiljene</a></li>
+                <li ng-if="$root.loggedInUser.Id==surveyCtrl.survey.UserId"><a class="about" ui-sref="createNewUsingOld({'id' : surveyCtrl.survey.Id})">Napravi novu koristeći staru</a></li>
+                <li ng-if="$root.loggedInUser.Id==surveyCtrl.survey.UserId"><a class="about" ui-sref="surveyusers({'id' : surveyCtrl.survey.Id})">Prikaz osoba koje su popunile anketu</a></li>
+                <li ng-if="$root.loggedInUser.Id==surveyCtrl.survey.UserId && surveyCtrl.survey.State == 1"><a class="about" href ng-click="surveyCtrl.changeState()">Zatvori anketu</a></li>
+                <li ng-if="$root.loggedInUser.Id==surveyCtrl.survey.UserId && surveyCtrl.survey.State == 2"><a class="about" href ng-click="surveyCtrl.changeState()">Otvori anketu</a></li>
+                <li ng-if="$root.loggedInUser.Id==surveyCtrl.survey.UserId"><a href ng-click="surveyCtrl.saveFile()">Sačuvaj rezultat</a></li>
+                <li ng-if="$root.loggedInUser.Id==surveyCtrl.survey.UserId"><a ui-sref="excelFiles({id : surveyCtrl.survey.Id})">Pogledaj sačuvane fajlove</a></li>
+                <li ng-if="$root.loggedInUser.Id==surveyCtrl.survey.UserId || $root.loggedInUser.RoleName == 'Admin' || $root.loggedInUser.RoleName == 'Moderator'"><a href="" ng-click="surveyCtrl.changeCategory()">Izmeni kategoriju</a></li>
+
+            </ul>
+        </div>
+    </nav>
+    <!-- KOMENTAR-->
+    <div ng-if="surveyCtrl.errors" class="alert alert-danger col-sm-12" style="position:relative; margin-top:30px;">
+        <ul ng-repeat="error in surveyCtrl.errors">
+            <li ng-repeat="errorText in error">
+                {{errorText}}
+            </li>
+        </ul>
+    </div>
+    <div ng-if="surveyCtrl.showForm == true" class="col-sm-12" style="border : 1px inset #4f95ff ;background-color: #151430; margin-top : 30px">
+        <post-comment-component comment="surveyCtrl.comment"></post-comment-component>
+    </div>
+    <survey-component style="margin-left: 10px; margin-right:10px" survey="surveyCtrl.survey" state="surveyCtrl.state" class="surveyComponent col-sm-12"></survey-component>
+    <div class="col-sm-12">
+        <button style="margin-left : 20px; margin-top : 20px; width : 200px; height:42px" ng-if="surveyCtrl.survey.State == 1 && $root.isAuth  &&(surveyCtrl.state == 'view') && (surveyCtrl.survey.fillAgain || (!surveyCtrl.fillAgain && !surveyCtrl.helpService.contains(surveyCtrl.survey.FilledSurvey, $root.loggedInUser.Id)))" ng-click="surveyCtrl.createUserAnswers(surveyCtrl.survey.fillAgain)">Pošalji</button>
+    </div>
+</div>
+
+
+<div class="col-sm-2"></div>

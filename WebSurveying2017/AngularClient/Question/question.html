@@ -1,0 +1,57 @@
+﻿    
+    
+    <h3 style="font-size : 25px"><i>{{$ctrl.question.OrdinalNumber}}. {{$ctrl.question.QuestionText}}<b ng-if="$ctrl.question.Required">*</b></i></h3>
+    
+    
+    
+    <div ng-if="$ctrl.question.AnswerType == 1">
+        <textarea ng-model="$ctrl.question.userAnswer.AnswerText" type="textarea" class="form-control" ">
+        </textarea>
+    </div>
+
+    <div ng-if="$ctrl.question.AnswerType == 2">
+        <select class="form-control" ng-model="$ctrl.question.userAnswer">
+            <option ng-selected="$ctrl.question.userAnswer == answer.Id" ng-repeat="answer in $ctrl.question.QuestionAnswers  | orderBy : 'OrdinalNumber'" value={{answer.Id}}>{{answer.AnswerText}}</option>
+        </select>
+     </div>
+
+    <div ng-if="$ctrl.question.AnswerType == 3">
+        <select multiple class="multiSelect form-control" ng-model="$ctrl.question.userAnswer">
+            <option ng-click="$ctrl.multiSelectClick($ctrl.question, $index, $parent.$parent.$parent.$index)" ng-class="$ctrl.className($parent.$parent.$parent.$index, $index)" ng-repeat="answer in $ctrl.question.QuestionAnswers | orderBy : 'OrdinalNumber'" value={{answer.Id}} id="select-1506428674649-0">{{answer.AnswerText}} </option>
+        </select>
+    </div>
+
+    <div ng-if="$ctrl.question.AnswerType == 4 " class="radio-group">
+        <div ng-repeat="answer in $ctrl.question.QuestionAnswers  | orderBy : 'OrdinalNumber'" class="radio"><label class="radioLabel">
+            <input class="option-input radio"   name={{$ctrl.question.Id}}  value={{answer.Id}} ng-model="$ctrl.question.userAnswer" type="radio">
+            {{answer.AnswerText}}</label>
+        </div>
+    </div>
+
+    <div ng-if="$ctrl.question.AnswerType == 5 || $ctrl.question.AnswerType == 6" class="fb-checkbox-group form-group field-checkbox-group-1506428643009">
+        <div class="checkbox-group">
+            <div ng-repeat="answer in $ctrl.question.QuestionAnswers  | orderBy : 'OrdinalNumber'" class="checkbox">
+                <label class="checkLabel">
+                    <input class="option-input checkbox" ng-model="$ctrl.question.userAnswer[$index]" ng-click="$ctrl.provera($ctrl.question, answer, $index, $parent.$parent.$parent.$index)" ng-class="$ctrl.className($parent.$parent.$parent.$index, $index)" type="checkbox" name="same" ng-true-value={{answer.Id}} ng-false-value=undefined>
+                    {{answer.AnswerText}}
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <div ng-if="$ctrl.question.AnswerType == 3 || $ctrl.question.AnswerType == 6">
+        <p ng-if="$ctrl.question.MinNumbOfAnswers != 1 && $ctrl.question.MaxNumberOfAnswers != $ctrl.question.QuestionAnswers.length">
+            Minimalan broj odgovora : {{$ctrl.question.MinNumbOfAnswers}}, Maksimalan broj odgovora : {{$ctrl.question.MaxNumbOfAnswers}}
+        </p>
+        <p ng-if="$ctrl.question.MinNumbOfAnswers == 1 && $ctrl.question.MaxNumberOfAnswers != $ctrl.question.QuestionAnswers.length">
+
+            Maksimalan broj odgovora : {{$ctrl.question.MaxNumbOfAnswers}}
+        </p>
+        <p ng-if="$ctrl.question.MinNumbOfAnswers != 1 && $ctrl.question.MaxNumberOfAnswers == $ctrl.question.QuestionAnswers.length">
+            Minimalan broj odgovora : {{$ctrl.question.MinNumbOfAnswers}}
+        </p>
+        <p ng-if="$ctrl.question.MinNumbOfAnswers == 1 && $ctrl.question.MaxNumberOfAnswers == $ctrl.question.QuestionAnswers.length">
+            Multi choice !
+        </p>
+
+    </div>

@@ -1,0 +1,206 @@
+﻿
+
+
+
+<div class="col-sm-12">
+
+    <!-- OTHER OPERATIONS-->
+    
+   <div class="" ng-if="$ctrl.helpService.contains($ctrl.survey.FavoriteSurveyFor, $root.loggedInUser.Id)" style="float:right; margin : 20px">
+       <img class="iconForFavorite" src="../AngularClient/favorite.png" width="70" height="70" style="float:right" ng-click="$ctrl.removeFromFavoriteSurveys()" />
+       <span class="tooltiptext">Ukloni sa liste omiljenjih anketa</span>
+       <br />
+       <label class="iconLabel">(Nalazi se u listi omiljenih anketa)</label>
+   </div>
+    <!--LIKE/DISLIKE-->
+   <div class="surveyContent" style="margin-left:20px; margin-right:20px">
+
+       <!--
+    <like-or-dislike-component entity="$ctrl.survey" ng-if="$ctrl.state == 'view'" class="likeDiv"></like-or-dislike-component>
+
+
+    <div ng-if="$ctrl.state == 'view'" class="likeDiv">
+        <div>
+            <button ng-click="$ctrl.likeSurvey()">Sviđa mi se</button> <b ng-if="$ctrl.survey.LikeCount > 0">( {{$ctrl.survey.LikeCount}} )</b>
+            <button ng-click="$ctrl.dislikeSurvey()">Ne sviđa mi se</button> <b ng-if="$ctrl.survey.DislikeCount > 0">( {{$ctrl.survey.DislikeCount}} )</b>
+        </div>
+        <button ng-if="$ctrl.contains($ctrl.survey.LikeOrDislikeSurvey, $root.loggedInUser.Id)" ng-click="$ctrl.viewLikes()">Pogledaj ocene</button>
+    </div>
+        -->
+       <br />
+       <!--NAME / DESCRIPTION -->
+       <div class="nameAndDescription col-sm-12">
+           <h2 style="text-align:center; font-size : 30px;" class="textBlack">Naziv : {{$ctrl.survey.Name}}</h2>
+           <h3 style="text-align:center; font-size : 27px;" class="textBlack">Kategorija : {{$ctrl.survey.Category.Name}}</h3>
+           <h3 style="text-align:center; font-size : 27px;" class="textBlack">Autor : {{$ctrl.survey.UserVM.FirstName}}  {{$ctrl.survey.UserVM.LastName}}</h3>
+           <h4 style="text-align:left; padding-left : 20px" class="textBlack">
+               Rezultati vidljivi  <i ng-if="!$ctrl.survey.ResultAuthor">svima</i><i ng-if="$ctrl.survey.ResultAuthor">autoru</i>.
+               Anketa <i ng-if="!$ctrl.survey.Anonymous"> nije anonimna</i><i ng-if="$ctrl.survey.Anonymous"> je anonimna</i>.
+           </h4>
+           <h4 class="textBlack" style="font-size : 18px;padding-left : 20px">Opis :   {{$ctrl.survey.Description}}</h4>
+       </div>
+      
+
+       <!--     IF STATE IS VIEW                           -->
+       <div ng-if="$ctrl.state == 'view'" class="col-sm-12">
+           <div ng-repeat="question in $ctrl.survey.Questions | orderBy : 'OrdinalNumber'" style="border-bottom : 1px inset #4f95ff; padding-bottom: 10px">
+
+               <div ng-if="$ctrl.state == 'view' && $ctrl.survey.fillAgain == true" ng-init="$ctrl.addButtonsAndCopyOldValues(question)">
+
+
+                   <button ng-if="question.showButtons == false" ng-click="$ctrl.putNewAnswer(question)">Postavi novi odgovor</button>
+                   <button ng-if="question.showButtons == true" ng-click="$ctrl.ok(question)">Potvrdi</button>
+                   <button ng-if="question.showButtons == true" ng-click="$ctrl.cancel(question)">Otkaži</button>
+               </div>
+
+
+               <div ng-if="$ctrl.state!='view'"><button ng-click="$ctrl.edit($ctrl.question)">Edit</button><button ng-click="$ctrl.delete($ctrl.question)">Obriši</button></div>
+
+               <div ng-style="question.myStyle" ng-init="$ctrl.initStyle(question)" class={{question.Id}}>
+                   <div ng-if="$ctrl.state!='view'"><button ng-click="$ctrl.edit(question)">Edit</button><button ng-click="$ctrl.delete(question)">Obriši</button></div>
+                   <question-component question="question"></question-component>
+                   <!--<div class="question">
+                    <h4> {{question.QuestionText}} <b ng-if="question.Required">*</b></h4><div ng-if="$ctrl.state!='view'"><button ng-click="$ctrl.edit(question)">Edit</button><button ng-click="$ctrl.delete(question)">Obriši</button></div>
+
+
+
+                    <div ng-if="question.AnswerType == 1">
+                        <textarea ng-model="question.userAnswer.AnswerText" type="textarea" class="form-control" ">
+                    </textarea>
+                    </div>
+                    <div ng-if="question.AnswerType == 2">
+
+                        <select class="form-control"  ng-model="question.userAnswer">
+                            <option ng-selected="question.userAnswer == answer.Id" ng-repeat="answer in question.QuestionAnswers" value={{answer.Id}} >{{answer.AnswerText}}</option>
+                        </select>
+
+                    </div>
+                    <div ng-if="question.AnswerType == 3">
+                        <select multiple class="multiSelect form-control"  ng-model="question.userAnswer">
+                            <option ng-click="$ctrl.multiSelectClick(question, $index, $parent.$index)" ng-class="$ctrl.className($parent.$index, $index)" ng-repeat="answer in question.QuestionAnswers" value={{answer.Id}} id="select-1506428674649-0">{{answer.AnswerText}}</option>
+                        </select>
+                    </div>
+                    <div ng-if="question.AnswerType == 4 " class="radio-group">
+                        <div ng-repeat="answer in question.QuestionAnswers" class="radio">
+                            <input name={{question.Id}} id="radio-group-1506428654040-0" value={{answer.Id}} ng-model="question.userAnswer" type="radio">
+                            <label>{{answer.AnswerText}}</label>
+                        </div>
+
+                    </div>
+                    <div ng-if="question.AnswerType == 5 || question.AnswerType == 6" class="fb-checkbox-group form-group field-checkbox-group-1506428643009">
+
+
+                        <div class="checkbox-group">
+                            <div ng-repeat="answer in question.QuestionAnswers" class="checkbox">
+                                <input ng-model="question.userAnswer[$index]" ng-click="$ctrl.provera(question, answer, $index, $parent.$index)" ng-class="$ctrl.className($parent.$index, $index)" type="checkbox" name="same"  ng-true-value={{answer.Id}} ng-false-value=undefined>
+                                <label for="checkbox-group-1506428643009-0">{{answer.AnswerText}}</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>-->
+               </div>
+               <!--<div ng-if="question.AnswerType == 3 || question.AnswerType == 6">
+                <p ng-if="question.MinNumbOfAnswers != 1 && question.MaxNumberOfAnswers != question.QuestionAnswers.length">
+                    Minimalan broj odgovora : {{question.MinNumbOfAnswers}}, Maksimalan broj odgovora : {{question.MaxNumbOfAnswers}}
+                </p>
+                <p ng-if="question.MinNumbOfAnswers == 1 && question.MaxNumberOfAnswers != question.QuestionAnswers.length">
+
+                    Maksimalan broj odgovora : {{question.MaxNumbOfAnswers}}
+                </p>
+                <p ng-if="question.MinNumbOfAnswers != 1 && question.MaxNumberOfAnswers == question.QuestionAnswers.length">
+                    Minimalan broj odgovora : {{question.MinNumbOfAnswers}}
+                </p>
+                <p ng-if="question.MinNumbOfAnswers == 1 && question.MaxNumberOfAnswers == question.QuestionAnswers.length">
+                    Multi choice !
+                </p>
+
+            </div>-->
+
+
+
+           </div>
+       </div>
+       <!--     IF STATE IS ADD OR UPDATE                           -->
+       <div ng-if="$ctrl.state != 'view'" class="col-sm-12">
+           <div ng-repeat="question in $ctrl.survey.Questions  | orderBy : 'OrdinalNumber'" style="border-bottom : 1px inset #4f95ff; padding-bottom: 10px">
+               <div ng-if="$ctrl.state!='view'"><button ng-click="$ctrl.edit(question)">Izmeni</button><button ng-click="$ctrl.delete(question)">Obriši</button></div>
+
+
+               <question-component question="question"></question-component>
+               <!--<div class="question">
+                <h4> {{question.QuestionText}} <b ng-if="question.Required">*</b></h4><div ng-if="$ctrl.state!='view'"><button ng-click="$ctrl.edit(question)">Edit</button><button ng-click="$ctrl.delete(question)">Delete</button></div>
+                <div ng-if="question.AnswerType == 1">
+                    <textarea  type="textarea" class="form-control">
+                    </textarea>
+                </div>
+                <div ng-if="question.AnswerType == 2">
+
+                    <select class="form-control">
+                        <option ng-repeat="answer in question.QuestionAnswers" value={{answer.Id}} id="select-1506428674649-0">{{answer.AnswerText}}</option>
+                    </select>
+
+                </div>
+
+
+                <div ng-if="question.AnswerType == 3">
+                    <select multiple class="multiSelect form-control">
+                        <option ng-repeat="answer in question.QuestionAnswers" value={{answer.Id}} >{{answer.AnswerText}}</option>
+                    </select>
+                </div>
+                <div ng-if="question.AnswerType == 4 " class="radio-group">
+                    <div ng-repeat="answer in question.QuestionAnswers" class="radio">
+                        <input name={{question.Id}} id="radio-group-1506428654040-0" value={{answer.Id}} type="radio">
+                        <label for="radio-group-1506428654040-0">{{answer.AnswerText}}</label>
+                    </div>
+
+                </div>
+                <div ng-if="question.AnswerType == 5 || question.AnswerType == 6" class="fb-checkbox-group form-group field-checkbox-group-1506428643009">
+
+
+                    <div class="checkbox-group">
+                        <div ng-repeat="answer in question.QuestionAnswers" class="checkbox">
+                            <input  type="checkbox" name="same" id="checkbox-group-1506428643009-0">
+                            <label for="checkbox-group-1506428643009-0">{{answer.AnswerText}}</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div ng-if="question.AnswerType == 3 || question.AnswerType == 6">
+                <p ng-if="question.MinNumbOfAnswers != 1 && question.MaxNumberOfAnswers != question.QuestionAnswers.length">
+                    Minimalan broj odgovora : {{question.MinNumbOfAnswers}}, Maksimalan broj odgovora : {{question.MaxNumbOfAnswers}}
+                </p>
+                <p ng-if="question.MinNumbOfAnswers == 1 && question.MaxNumberOfAnswers != question.QuestionAnswers.length">
+
+                    Maksimalan broj odgovora : {{question.MaxNumbOfAnswers}}
+                </p>
+                <p ng-if="question.MinNumbOfAnswers != 1 && question.MaxNumberOfAnswers == question.QuestionAnswers.length">
+                    Minimalan broj odgovora : {{question.MinNumbOfAnswers}}
+                </p>
+                <p ng-if="question.MinNumbOfAnswers == 1 && question.MaxNumberOfAnswers == question.QuestionAnswers.length">
+                    Multi choice !
+                </p>
+
+            </div>-->
+
+
+
+           </div>
+       </div>
+       <!--
+      <div ng-if="$ctrl.state == 'view' && ( $ctrl.survey.State == 4  || $ctrl.survey.State == 5) && $ctrl.showReject">
+          Za korekciju :
+          <textarea ng-model="$ctrl.survey.Correction" type="textarea" class="form-control">
+                  </textarea>
+          <button ng-click="$ctrl.reject()">Potvrdi odbijanja</button>
+
+      </div>
+
+
+
+      <div ng-if="$root.isAuth">
+          <button ng-if="$ctrl.state == 'update'" ng-click="$ctrl.updateSurvey()">Izmeni</button>
+
+    </div>
+          -->
+   </div>
+</div>

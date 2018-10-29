@@ -1,0 +1,96 @@
+﻿<div class="col-sm-4">
+
+</div>
+<div class="signin col-sm-4">
+
+
+    <h1>Registracija</h1>
+    <p>{{ctrl.message}}</p>
+    <div ng-if="ctrl.errors" class="alert alert-danger">
+        <ul ng-repeat="error in ctrl.errors">
+            <li ng-repeat="errorText in error">
+                {{errorText}}
+            </li>
+        </ul>
+    </div>
+    <form class="form" id="rendered-form">
+
+        <div class="rendered-form">
+
+            <div>
+                <input ng-model="ctrl.signUpVM.Email" type="text" placeholder=" - email -" class="form-control" ">
+            </div>
+            <br />
+            <div>
+                <input ng-model="ctrl.signUpVM.Password" type="password" placeholder=" - šifra -" class="form-control">
+            </div>
+            <br />
+            <div>
+                <input ng-model="ctrl.signUpVM.ConfirmPassword" type="password" placeholder=" - ponovo unesite šifru -" class="form-control">
+            </div>
+            <br />
+            <div>
+                <input ng-model="ctrl.signUpVM.FirstName" type="text" placeholder=" - ime -" class="form-control">
+            </div>
+            <br />
+            <div>
+                <input ng-model="ctrl.signUpVM.LastName" type="text" placeholder=" - prezime -" class="form-control">
+            </div>
+            <br />
+            <div>
+                <input ng-model="ctrl.signUpVM.City" type="text" placeholder=" - grad -" class="form-control">
+            </div>
+            <br />
+           
+            
+            <br />
+            <div class="fb-radio-group form-group field-radio-group-1511789902695" style="padding-left:20px; ">
+                <label class="fb-radio-group-label"></label>
+                <br />
+                <div class="radio-group">
+                    <div class="radio">
+                        <input class="option-input radio" ng-model="ctrl.signUpVM.Gender"  name="radio-group-1511789902695" value="1" type="radio">
+                        <label>Muško</label>
+                    </div>
+                    <div class="radio" style="margin-top:10px">
+                        <input class="option-input radio" ng-model="ctrl.signUpVM.Gender" name="radio-group-1511789902695" value="2" type="radio">
+                        <label>Žensko</label>
+                    </div>
+                </div>
+            </div>
+            <br />
+            <div class="fb-radio-group form-group field-radio-group-151178" ng-if="$root.role == 'Admin'" style="padding-top :20px;border-top : 1px dashed #4f95ff;">
+                <label for="radio-group-1511789902695" class="fb-radio-group-label" style="text-align:left"></label>
+                <div class="radio-group" style="margin-left:20px">
+                    <div class="radio">
+                        <input class="option-input radio" ng-model="ctrl.signUpVM.RoleName" name="radio-group-15" id="radio-group-1511789902695-0" value="Admin" type="radio">
+                        <label for="radio-group-15-0">Administrator</label>
+                    </div>
+                    <div class="radio" style="margin-top:10px">
+                        <input class="option-input radio" ng-model="ctrl.signUpVM.RoleName" name="radio-group-15" id="radio-group-1511789902695-1" value="Moderator" type="radio">
+                        <label for="radio-group-155-1">Moderator</label>
+                    </div>
+                    <div class="radio" style="margin-top:10px">
+                        <input class="option-input radio" ng-model="ctrl.signUpVM.RoleName" name="radio-group-15" id="radio-group-1511789902695-2" value="User" type="radio">
+                        <label for="radio-group-15-2">Korisnik</label>
+                    </div>
+                    
+                </div>
+            </div>
+            <br />
+            <div class="fb-date form-group field-date-1511789892644" style="padding-bottom : 20px; border-bottom : 1px inset #4f95ff;">
+                <label for="date-1511789892644" class="fb-date-label">Datum rođenja</label>
+
+                <md-datepicker md-min-date="ctrl.minDate" md-max-date ="ctrl.maxDate" flex  ng-model="ctrl.signUpVM.Birthday" md-current-view="year" md-placeholder=" - ubacite datum - "></md-datepicker>
+            </div>
+           
+            <br />
+            <div>
+                <button ng-click="ctrl.signUp()" type="button" name="sign-in">Registruj se</button>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="col-sm-4">
+
+</div>

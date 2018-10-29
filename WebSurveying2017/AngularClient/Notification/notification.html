@@ -1,0 +1,20 @@
+﻿<div>
+    <div><a href  ng-click="$ctrl.onClick(false)">
+        {{$ctrl.notification.Message}}
+        </a>
+        <div ng-if="$ctrl.notification.Operation == 8">
+            <button ng-click="$ctrl.repsondOnRequest(true)">
+                Prihvati
+            </button>
+            <button ng-click="$ctrl.repsondOnRequest(false)">
+                Odbij
+            </button>
+        </div>
+    </div>
+    <div>
+        {{$ctrl.notification.DateTime | date : 'medium'}}
+    </div>
+    <div>
+        <button ng-click="$ctrl.onClick(true)">Oznaci kao procitano</button>
+    </div>
+</div>

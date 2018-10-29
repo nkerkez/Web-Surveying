@@ -1,0 +1,165 @@
+﻿<div class="col-sm-2"></div>
+<div class="homeDiv bs-docs-example col-sm-8" style="padding-top : 0px; padding-left : 3px; padding-right : 0px;">
+
+
+    <div ng-if="ctrl.userId == $root.loggedInUser.Id" class="navbarView navbar navbar-inverse" style="position : relative; top: 0px">
+        <div class="navbar-inner">
+            <div>
+                <!-- Note: set the initial collapsed state and change it when clicking -->
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a class="about" href ng-click="ctrl.showModCats = false" class="btn btn-navbar">
+                            Info
+                        </a>
+                    </li>
+                    <li>
+                        <a class="about" href ng-init="navCollapsedSurvey = true" ng-click="navCollapsedSurvey = !navCollapsedSurvey" class="btn btn-navbar">
+                            Ankete
+                        </a>
+                        <!-- Note: use "collapse" here. The original "data-" settings are not needed anymore. -->
+                        <div uib-collapse="navCollapsedSurvey" class="nav-collapse collapse navbar-responsive-collapse">
+                            <ul class="nav">
+
+                                <li><a class="about" ui-sref="authorSurveys({page : 1, size : 10, state : 3})">Moje ankete</a></li>
+                                <li><a class="about" ui-sref="filledSurveys({page : 1, size : 10, state : 3})">Popunjene ankete</a></li>
+                                <li><a class="about" ui-sref="favoriteSurveys({page : 1, size : 10, state : 3})">Omiljene ankete</a></li>
+
+
+                            </ul>
+
+                        </div><!-- /.nav-collapse -->
+                    </li>
+                    <li>
+                        <a class="about" href ng-init="navCollapsedGroup = true" ng-click="navCollapsedGroup = !navCollapsedGroup" class="btn btn-navbar">
+                            Grupe
+                        </a>
+                        <div uib-collapse="navCollapsedGroup" class="nav-collapse collapse navbar-responsive-collapse">
+                            <ul class="nav">
+
+                                <li><a class="about" ui-sref="myGroups({page : 1, size : 10})">Moje grupe</a></li>
+                                <li><a class="about" ui-sref="groupMember({page : 1, size : 10})">Grupe čiji sam član</a></li>
+
+                            </ul>
+
+                        </div><!-- /.nav-collapse -->
+                    </li>
+                    <li>
+                        <a class="about" href ng-init="navCollapsedComment = true" ng-click="navCollapsedComment = !navCollapsedComment" class="btn btn-navbar">
+                            Komentari
+                        </a>
+                        <div uib-collapse="navCollapsedComment" class="nav-collapse collapse navbar-responsive-collapse">
+                            <ul class="nav">
+
+                                <li><a class="about" ui-sref="userComments({page : 1, size : 10 })">Moji komentari</a></li>
+
+                            </ul>
+
+                        </div><!-- /.nav-collapse -->
+                    </li>
+                    
+                    <li ng-if="$root.loggedInUser.RoleName == 'Admin'">
+                        <a class="about" href ng-init="navCollapsedRole = true" ng-click="navCollapsedRole = !navCollapsedRole" class="btn btn-navbar">
+                            Promeni ulogu
+                        </a>
+                        <div uib-collapse="navCollapsedRole" class="nav-collapse collapse navbar-responsive-collapse" ng-if="ctrl.user.RoleName != 'Admin'">
+                            <ul class="nav">
+
+                                <li><a class="about" href ng-click="ctrl.changeRole('Admin')">Admin</a></li>
+
+                            </ul>
+
+                        </div><!-- /.nav-collapse -->
+                        <div uib-collapse="navCollapsedRole" class="nav-collapse collapse navbar-responsive-collapse" ng-if="ctrl.user.RoleName != 'Moderator'">
+                            <ul class="nav">
+
+                                <li><a class="about" href ng-click="ctrl.changeRole('Moderator')">Moderator</a></li>
+
+                            </ul>
+
+                        </div><!-- /.nav-collapse -->
+                        <div uib-collapse="navCollapsedRole" class="nav-collapse collapse navbar-responsive-collapse" ng-if="ctrl.user.RoleName != 'User'">
+                            <ul class="nav">
+
+                                <li><a class="about" href ng-click="ctrl.changeRole('User')">Korisnik</a></li>
+
+                            </ul>
+
+                        </div><!-- /.nav-collapse -->
+                    </li>
+                </ul>
+
+
+            </div> <!-- /.container -->
+        </div><!-- /navbar-inner -->
+    </div><!-- /navbar -->
+    <div ng-if="$root.role == 'Admin' && ctrl.userId != $root.loggedInUser.Id && ctrl.user != null" class="navbar navbar-inverse">
+        <div class="navbar-inner">
+            <div>
+                <!-- Note: set the initial collapsed state and change it when clicking -->
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a class="about" href ng-init="navCollapsedRole = true" ng-click="navCollapsedRole = !navCollapsedRole" class="btn btn-navbar">
+                            Promeni ulogu
+                        </a>
+                        <div uib-collapse="navCollapsedRole" class="nav-collapse collapse navbar-responsive-collapse" ng-if="ctrl.user.RoleName != 'Admin'">
+                            <ul class="nav">
+
+                                <li><a class="about" href ng-click="ctrl.changeRole('Admin')">Admin</a></li>
+
+                            </ul>
+
+                        </div><!-- /.nav-collapse -->
+                        <div uib-collapse="navCollapsedRole" class="nav-collapse collapse navbar-responsive-collapse" ng-if="ctrl.user.RoleName != 'Moderator'">
+                            <ul class="nav">
+
+                                <li><a class="about" href ng-click="ctrl.changeRole('Moderator')">Moderator</a></li>
+
+                            </ul>
+
+                        </div><!-- /.nav-collapse -->
+                        <div uib-collapse="navCollapsedRole" class="nav-collapse collapse navbar-responsive-collapse" ng-if="ctrl.user.RoleName != 'User'">
+                            <ul class="nav">
+
+                                <li><a class="about" href ng-click="ctrl.changeRole('User')">Korisnik</a></li>
+
+                            </ul>
+
+                        </div><!-- /.nav-collapse -->
+                    </li>
+                </ul>
+
+
+            </div> <!-- /.container -->
+        </div><!-- /navbar-inner -->
+    </div><!-- /navbar -->
+
+    <user-info-component user="ctrl.user" state="ctrl.userId == $root.loggedInUser.Id?'PROFILE' : ''" update="ctrl.update()" reset-password="ctrl.resetPassword(obj)" ng-if="!ctrl.showModCats"></user-info-component>
+    <div ng-if="ctrl.errors" class="alert alert-danger">
+        <ul ng-repeat="error in ctrl.errors">
+            <li ng-repeat="errorText in error">
+                {{errorText}}
+            </li>
+        </ul>
+    </div>
+   
+    <div ng-if="ctrl.showModCats" class="col-sm-12">
+        <categories-component roots="ctrl.categories" state="ctrl.state" on-category-click="ctrl.onClick(category)" modCats="ctrl.modCats"></categories-component>
+    </div>
+
+</div> <!-- /bs-docs-example -->
+
+<div class="col-sm-2"></div>
+
+
+
+
+
+
+<!--<nav class="navbar navbar-inverse">
+    <ul class="nav navbar-nav">
+        <li><a class = "about"  >Created Surveys</a></li>
+        <li><a class = "about"   href ng-click="ctrl.openCategories()">Mod Categories</a></li>
+     </ul>
+</nav>
+!-->
+<br/>

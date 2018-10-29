@@ -1,0 +1,20 @@
+﻿<form id="searchGroupsForm">
+    <table class="searchGroupsTable col-sm-12">
+        <tr>
+            <td>
+                <input ng-model="$ctrl.obj.Name" class="form-control" name="Name" placeholder=" - naziv grupe - "/>
+            </td>
+            <td>
+                <input ng-model="$ctrl.obj.AuthorFirstName"  class="form-control" name="AuthorFirstName" placeholder=" - ime autora - " />
+            </td>
+            <td>
+                <input ng-model="$ctrl.obj.AuthorLastName"  class="form-control" name="AuthorLastName" placeholder=" - prezime autora - "/>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                <button ng-click="$ctrl.searchGroupsClick()">Pretraži</button>
+            </td>
+        </tr>
+    </table>
+</form>

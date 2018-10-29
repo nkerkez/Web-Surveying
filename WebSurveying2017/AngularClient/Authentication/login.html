@@ -1,0 +1,44 @@
+﻿<div class="col-sm-4"></div>
+<div class="login col-sm-4">
+    <h1>Prijavljivanje</h1>
+
+    <div ng-if="ctrl.errorMessage" class="alert alert-danger">
+        {{ctrl.errorMessage}}
+    </div>
+
+    <div ng-if="ctrl.errors" class="alert alert-danger">
+        <ul ng-repeat="error in ctrl.errors">
+            <li ng-repeat="errorText in error">
+                {{errorText}}
+            </li>
+        </ul>
+    </div>
+    <br />
+    <div ng-if="ctrl.message != null">
+        {{ctrl.message}}
+    </div>
+    <form class="form" method="post">
+        <div>
+            <input ng-model="ctrl.loginVM.Username" class="form-control" type="text" placeholder=" - email -" />
+        </div>
+        <br />
+        <div>
+            <input ng-model="ctrl.loginVM.Password" class="form-control" type="password" placeholder=" - šifra - " />
+        </div>
+        <br />
+        <div>
+            <a href ng-click="ctrl.forgotPassword()">Zaboravili ste lozinku? Unesite email na koji će vam biti poslata poruka.</a>
+        </div>
+        <br/>
+        <button ng-click="ctrl.login()">Prijavi se</button>
+        <br />
+        <br />
+        <button class="externalLoginButton" ng-click="ctrl.authExternalProvider('Google')">Prijavi se preko Google naloga</button>
+        <br />
+        <br />
+        <button class="externalLoginButton" ng-click="ctrl.authExternalProvider('Facebook')">Prijavi se preko Facebook naloga</button>
+        <br />
+    </form>
+
+</div>
+<div class="col-sm-4"></div>

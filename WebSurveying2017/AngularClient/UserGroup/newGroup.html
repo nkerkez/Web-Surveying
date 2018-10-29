@@ -1,0 +1,54 @@
+﻿<div class="col-sm-2"></div>
+<div class="homeDiv col-sm-8" style="box-shadow:  0px 0px 30px 10px #4f95ff;display : table">
+    <div ng-if="ctrl.errors" class="alert alert-danger">
+        <ul ng-repeat="error in ctrl.errors">
+            <li ng-repeat="errorText in error">
+                {{errorText}}
+            </li>
+        </ul>
+    </div>
+    <input ng-if="ctrl.groupId == null" style="margin-top : 20px;" ng-model="ctrl.group.Name" type="text" placeholder=" - naziv grupe - " class="form-control" />
+    <br/>
+    <div class="usersInGroup col-sm-12">
+        <table class="searchTable col-sm-12" style="border : none">
+            <tr ng-repeat="user in ctrl.usersInGroup">
+                <td class="col-sm-4">
+                    <label> {{user.FirstName}}</label>
+                </td>
+                <td class="col-sm-4">
+                    <label>{{user.LastName}}</label>
+                </td>
+                <td  class="col-sm-4">
+                    <button ng-click="ctrl.removeFromGroup(user)">Ukloni</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="col-sm-12" style="margin-top: 20px; padding-bottom : 10px;">
+        <button ng-click="ctrl.createGroup()">
+            Napravi
+        </button>
+    </div>
+    <div class="col-sm-12">
+        <search-users-component class="col-sm-12" search-users="ctrl.searchUsers(queryString)"></search-users-component>
+    </div>
+    <br />
+
+    <div class="pageDiv col-sm-12">
+
+        <ul uib-pagination style="margin: 0px;" total-items="ctrl.totalItems" ng-model="ctrl.currentPage" ng-change="ctrl.pageChanged()" class="pageUl"
+            previous-text="Prethodna stranica"
+            next-text="Sledeća stranica"
+            items-per-page="ctrl.size"></ul>
+    </div>
+
+
+    <br />
+    <div ng-repeat="user in ctrl.users" class="usersDiv col-sm-6">
+        <user-info-component style="margin : 40px;" user="user" remove-from-group="ctrl.removeFromGroup(user)" users-in-group ="ctrl.usersInGroup" add-user="ctrl.addUser(user)" state="'GROUP'" class="col-sm-12"></user-info-component>
+    </div>
+
+
+
+</div>
+    <div class="col-sm-2"></div>

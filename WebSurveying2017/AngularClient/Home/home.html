@@ -1,0 +1,34 @@
+﻿<div class="homeDiv col-sm-12">
+    <div class="categoriesContainer col-sm-3" style="position : relative; max-height:inherit">
+        <categories-component class="categoriesComponent col-sm-12" state="ctrl.state" roots="ctrl.rootCategories" on-category-click="ctrl.onClick(category)"></categories-component>
+    </div>
+    <div class="surveysContainer col-sm-9">
+        <survey-bar-component change-state-value ="ctrl.changeStateValue(state)" type-of-surveys="ctrl.typeOfSurveys" ng-if="isAuth" class="col-sm-12"></survey-bar-component>
+
+        <search-surveys-component class="col-sm-12" search-surveys="ctrl.searchSurveys(queryString)"></search-surveys-component>
+
+
+        <div class="pageDiv col-sm-12">
+
+            <ul uib-pagination style="margin: 0px;" total-items="ctrl.totalItems" ng-model="ctrl.currentPage" ng-change="ctrl.pageChanged()" class="pageUl"
+                previous-text="Prethodna stranica"
+                next-text="Sledeća stranica"
+                items-per-page="ctrl.size"></ul>
+        </div>
+        <br />
+
+        <surveys-component surveys="ctrl.surveys" class="col-sm-12"></surveys-component>
+
+        <!--
+        <div class="pageDiv col-sm-12">
+            <ul uib-pagination style="margin: 0px;" total-items="ctrl.totalItems" ng-model="ctrl.currentPage" ng-change="ctrl.pageChanged()" class="pageUl"
+                previous-text="Prethodna stranica"
+                next-text="Sledeca stranica"
+                items-per-page="ctrl.size"></ul>
+        </div>
+            -->
+
+    </div>
+</div>
+ 
+

@@ -1,0 +1,96 @@
+﻿<div class="col-sm-2"></div>
+<div class="result col-sm-8">
+    <div class="resultMessage col-sm-12">
+        <h2  class="font-size : 30px">Rezultat za anketu : <b><i>{{ctrl.survey.Name}}</i></b></h2>
+        <h4 ng-if="ctrl.survey.Anonymous" class="col-sm-12">
+            Anketu popunilo <b class="numberResult">{{ctrl.survey.NumbOfUsers}}</b> korisnika.
+        </h4>
+        <h4 ng-if="!ctrl.survey.Anonymous" class="col-sm-12" style="text-align : center ; font-size:22px">
+            Anketu popunilo <b class="numberResult">{{ctrl.survey.NumbOfUsers}}</b> korisnika, od toga <b class="numberResult">{{ctrl.survey.FemaleCount}}({{ctrl.survey.FemaleCount * 100 /  ctrl.survey.NumbOfUsers |  number : 2 }}%) </b> korisnika zenske populacije i <b class="numberResult">{{ctrl.survey.MaleCount}}({{ctrl.survey.MaleCount * 100 /  ctrl.survey.NumbOfUsers |  number : 2 }}%) </b> korisnika muske populacije.
+            Mladji od 18 godina : <b class="numberResult">
+                {{ctrl.survey.UsersUnder18Count}}({{ctrl.survey.UsersUnder18Count * 100 /  ctrl.survey.NumbOfUsers |  number : 2 }}%)
+            </b>, izmedju 18 i 25 godina : <b class="numberResult">
+                {{ctrl.survey.Users18_25Count}}({{ctrl.survey.Users18_25Count * 100 /  ctrl.survey.NumbOfUsers |  number : 2 }}%)
+            </b>,
+            izmedju 26 i 40 godina : <b class="numberResult">
+                {{ctrl.survey.Users26_40Count}}({{ctrl.survey.Users26_40Count * 100 /  ctrl.survey.NumbOfUsers |  number : 2 }}%)
+            </b>,  izmedju 41 i 60 godina : <b class="numberResult">
+                {{ctrl.survey.Users41_60Count}}({{ctrl.survey.Users41_60Count * 100 /  ctrl.survey.NumbOfUsers |  number : 2 }}%)
+            </b>,
+            stariji od 61-e godina : <b class="numberResult">{{ctrl.survey.Users61Count}}({{ctrl.survey.Users61Count * 100 /  ctrl.survey.NumbOfUsers |  number : 2 }}%) </b>,
+            nepoznato : <b class="numberResult">{{ctrl.survey.Unknown}}({{ctrl.survey.Unknown * 100 /  ctrl.survey.NumbOfUsers |  number : 2 }}%) </b>.
+
+        </h4>
+            <div class="col-sm-12">
+                <select ng-change="ctrl.perSelectClick()" ng-model="ctrl.selected">
+                    <option selected value="1">Prema broju korisnika koji su popunili anketu</option>
+                    <option value="2">Prema broju korisnika koji su odgovorili na pitanje</option>
+                    <option value="3">Prema broju odgovora na pitanja</option>
+                </select>
+            </div>
+</div>
+    <br />
+    <div ng-repeat="question in ctrl.survey.Questions | orderBy : question.OrdinalNumber" ng-init="question.index = $index" class="questionResult col-sm-12" style="border-bottom : 1px inset #4f95ff; padding-bottom: 10px">
+        
+        <h4 class="col-sm-6" style="font-size : 25px"><i> {{question.OrdinalNumber}}.{{question.QuestionText}}</i></h4><button ng-if="ctrl.survey.UserId == $root.loggedInUser.Id" ng-click="ctrl.questionResult(question.Id)">Pogledaj glasove</button>
+        <div class="col-sm-6" ng-if="question.AnswerType != 1 ">
+        <select ng-model="ctrl.per[$index]" class="col-sm-12">
+            <option ng-selected="ctrl.per[$index]==ctrl.survey.NumbOfUsers" value ="{{ctrl.survey.NumbOfUsers}}">Prema broju korisnika koji su popunili anketu</option>
+            <option ng-selected="ctrl.per[$index]==question.NumbOfUsers" value="{{question.NumbOfUsers}}">Prema broju korisnika koji su odgovorili na pitanje</option>
+            <option ng-selected="ctrl.per[$index]==question.NumbOfUA" value="{{question.NumbOfUA}}">Prema broju odgovora na pitanja</option>
+        </select>
+        </div>
+        <h5 class="col-sm-12">
+            Na pitanje odgovorilo {{question.NumbOfUsers}} korisnika. <span ng-if="question.AnswerType != 1 ">Ukupan broj odgovora na pitanje {{question.NumbOfUA}}.</span>
+            
+
+        </h5>
+        <br />
+        <div ng-repeat="answer in question.QuestionAnswers" class="questionAnswer col-sm-12">
+           
+            <div ng-if="question.AnswerType == 1 ">
+                <div ng-repeat="answer in question.QuestionAnswers">{{answer.AnswerText}}</div>
+                
+            </div>
+            
+            <div  ng-if="question.AnswerType != 1 ">
+               
+               
+                <div ng-if="answer.IsAnswerOfUser == false">
+                    <h5>{{answer.AnswerText}}</h5>
+                    <div ng-if="question.NumbOfUA != 0" class="progress">
+                        <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="background-color : #4f95ff ;width:{{answer.Count * 100/ctrl.per[question.index]}}%">
+                            {{answer.Count * 100/ctrl.per[question.index]  |  number : 2 }}% ( {{answer.Count}} )
+                        </div>
+                    </div>
+                    <div ng-if="question.NumbOfUA == 0" class="progress">
+                        <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="background-color : #4f95ff ;width:{{answer.Count * 100/ctrl.per[question.index]}}%">
+                            ( {{answer.Count}} )
+                        </div>
+                    </div>
+                    <br />
+                </div>
+                <div ng-if="answer.IsAnswerOfUser == true">
+                    <h4 style="color: greenyellow">{{answer.AnswerText}}</h4>
+                    <div ng-if="question.NumbOfUA != 0" class="progress">
+
+                        <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="color : #4f95ff ;background-color: greenyellow;width:{{answer.Count * 100/ctrl.per[question.index]}}%">
+                            {{answer.Count * 100/ctrl.per[question.index]  |  number : 2 }}% ( {{answer.Count}} )  
+                        </div>
+                    </div>
+                    <div ng-if="question.NumbOfUA == 0" class="progress">
+
+                        <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="background-color: greenyellow;width:{{answer.Count * 100/ctrl.ctrl.per[question.index]}}%">
+                            ( {{answer.Count}} )
+                        </div>
+                    </div>
+                    <br />
+                </div>
+            </div>
+        </div>
+        <br />
+    </div>
+
+
+</div>
+<div class="col-sm-2"></div>
